@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DAVTrading
+
+Professional real-time trading dashboard built with Next.js, TypeScript, and Tailwind CSS.
+
+## Features
+
+- **Live Dashboard** — Market overview with total market cap, volume, BTC dominance, top gainers/losers, and trending coins
+- **Markets** — Browse 250+ cryptocurrencies with live prices, 24h/7d changes, market cap, volume, and sparkline charts
+- **Asset Details** — Deep-dive pages with interactive candlestick charts (1D/7D/1M/3M/1Y), market stats, descriptions, and external links
+- **Real-Time Prices** — WebSocket connection to Binance for sub-second price updates with flash animations
+- **Watchlist** — Star any asset to track it; persisted in localStorage
+- **Portfolio** — Add holdings with quantity and buy price; real-time P&L tracking with allocation visualization
+- **News** — Live financial news feed from CryptoCompare, updated every 2 minutes
+- **Search** — Instant search across all cryptocurrencies via CoinGecko
+- **Responsive** — Works on mobile, tablet, and desktop
+
+## Data Sources (all free, no API keys required)
+
+| Source | Data |
+|--------|------|
+| [CoinGecko](https://www.coingecko.com/) | Crypto prices, market data, OHLC charts, search, trending, global stats |
+| [Binance](https://www.binance.com/) | Real-time WebSocket price streams, kline/candlestick data |
+| [CryptoCompare](https://www.cryptocompare.com/) | Financial news feed |
+
+## Tech Stack
+
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Charts**: [Lightweight Charts](https://github.com/nickvdyck/lightweight-charts) (TradingView)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Data Fetching**: SWR + native fetch with auto-refresh
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout with sidebar + header
+│   ├── page.tsx            # Dashboard
+│   ├── markets/
+│   │   ├── page.tsx        # Markets list
+│   │   └── [type]/[id]/
+│   │       └── page.tsx    # Asset detail
+│   ├── watchlist/page.tsx  # Watchlist
+│   ├── portfolio/page.tsx  # Portfolio tracker
+│   └── news/page.tsx       # News feed
+├── components/
+│   ├── Sidebar.tsx
+│   ├── Header.tsx
+│   ├── PriceChart.tsx      # Candlestick chart
+│   ├── SparklineChart.tsx  # Mini sparkline
+│   ├── CryptoTable.tsx
+│   ├── MarketOverviewCards.tsx
+│   ├── TopMovers.tsx
+│   ├── TrendingCoins.tsx
+│   ├── NewsFeed.tsx
+│   ├── LivePrice.tsx       # WebSocket live price
+│   ├── WatchlistButton.tsx
+│   └── AddToPortfolioModal.tsx
+├── lib/
+│   ├── api.ts              # All API functions
+│   └── storage.ts          # localStorage helpers
+├── hooks/
+│   └── useLocalStorage.ts
+└── types/
+    └── index.ts
+```
